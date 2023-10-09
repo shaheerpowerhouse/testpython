@@ -30,20 +30,28 @@ from app.models import User
 account = Blueprint('account', __name__)
 
 
+def validate_login(form):
+    user = User.query.filter_by(email=form.email.data).first()
+    if user is not None and user.password_hash is not None and \
+            user.verify_password(form.password.data):
+        return user
+    else:
+        return None
+
 @account.route('/login', methods=['GET', 'POST'])
 def login():
     """Log in an existing user."""
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user is not None and user.password_hash is not None and \
-                user.verify_password(form.password.data):
+        user = validate_login(form)
+        if user:
             login_user(user, form.remember_me.data)
             flash('You are now logged in. Welcome back!', 'success')
             return redirect(request.args.get('next') or url_for('main.index'))
         else:
             flash('Invalid email or password.', 'error')
     return render_template('account/login.html', form=form)
+
 
 
 @account.route('/register', methods=['GET', 'POST'])
