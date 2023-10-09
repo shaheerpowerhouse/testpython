@@ -28,7 +28,7 @@ class CustomSelectField(Field):
 
     def __init__(self, label='', validators=None, multiple=False,
                  choices=[], allow_custom=True, **kwargs):
-        super(CustomSelectField, self).__init__(label, validators, **kwargs)
+        super().__init__(label, validators, **kwargs)
         self.multiple = multiple
         self.choices = choices
         self.allow_custom = allow_custom
