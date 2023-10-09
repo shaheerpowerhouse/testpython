@@ -42,7 +42,7 @@ class Role(db.Model):
         db.session.commit()
 
     def __repr__(self):
-        return '<Role \'%s\'>' % self.name
+        return f'<Role \'{self.name}\'>'
 
 
 class User(UserMixin, db.Model):
