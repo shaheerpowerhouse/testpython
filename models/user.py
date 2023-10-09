@@ -56,7 +56,7 @@ class User(UserMixin, db.Model):
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
 
     def __init__(self, **kwargs):
-        super(User, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         if self.role is None:
             if self.email == current_app.config['ADMIN_EMAIL']:
                 self.role = Role.query.filter_by(
