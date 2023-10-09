@@ -177,7 +177,7 @@ class User(UserMixin, db.Model):
                 db.session.rollback()
 
     def __repr__(self):
-        return '<User \'%s\'>' % self.full_name()
+        return f'<User \'{self.full_name()}\'>'
 
 
 class AnonymousUser(AnonymousUserMixin):
